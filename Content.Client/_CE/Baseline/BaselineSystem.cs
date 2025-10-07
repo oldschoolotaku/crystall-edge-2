@@ -1,8 +1,6 @@
 using Content.Shared.CCVar;
-using Robust.Shared;
-using Robust.Shared.Configuration;
 
-namespace Content.Client._Baseline.EntityFilter;
+namespace Content.Client._CE.Baseline;
 
 /// <summary>
 /// On the client side, it automatically enables entity filtering to hide all vanilla ss14 entities

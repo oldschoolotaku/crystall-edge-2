@@ -3,4 +3,4 @@
   locFilter: "en-US"
   id: Baseline_Welcome
   name: Welcome to Baseline
-  text: "/ServerInfo/_Baseline/Guidebook_EN/Welcome.xml"
+  text: "/ServerInfo/_CE/Guidebook_EN/Welcome.xml"
