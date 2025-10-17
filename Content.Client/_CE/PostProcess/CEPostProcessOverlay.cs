@@ -14,7 +14,6 @@ namespace Content.Client._CE.PostProcess;
 // Ideally, for performance reasons, post processing designed to be present at all times, such as additive light blending or tonemapping, should be done as part of a single shader pass.
 public sealed class CEPostProcessOverlay : Overlay
 {
-    [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IEntityManager _entMan = default!;
     [Dependency] private readonly ILightManager _lightManager = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
@@ -32,9 +31,6 @@ public sealed class CEPostProcessOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (!_cfg.GetCVar(CCVars.CEPostProcess))
-            return false;
-
         if (!_entMan.TryGetComponent(_player.LocalSession?.AttachedEntity, out EyeComponent? eyeComp))
             return false;
 
@@ -77,11 +73,30 @@ public sealed class CEPostProcessOverlay : Overlay
 public sealed class CEPostProcessSystem : EntitySystem
 {
     [Dependency] private readonly IOverlayManager _overlay = default!;
+    [Dependency] private readonly IConfigurationManager _cfg = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        _overlay.AddOverlay(new CEPostProcessOverlay());
+
+        if (_cfg.GetCVar(CCVars.CEPostProcess) && !_overlay.HasOverlay<CEPostProcessOverlay>())
+        {
+            _overlay.AddOverlay(new CEPostProcessOverlay());
+        }
+
+        Subs.CVar(_cfg, CCVars.CEPostProcess, OnCVarUpdate, true);
+    }
+
+    private void OnCVarUpdate(bool enabled)
+    {
+        if (enabled && !_overlay.HasOverlay<CEPostProcessOverlay>())
+        {
+            _overlay.AddOverlay(new CEPostProcessOverlay());
+        }
+        else if (!enabled && _overlay.HasOverlay<CEPostProcessOverlay>())
+        {
+            _overlay.RemoveOverlay<CEPostProcessOverlay>();
+        }
     }
 
     public override void Shutdown()
