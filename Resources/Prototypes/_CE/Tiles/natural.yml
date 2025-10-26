@@ -13,7 +13,7 @@
   - 1.0
   - 1.0
   - 1.0
-  baseTurf: CEFloorBase
+  baseTurf: CEFloorStone
   isSubfloor: false
   heatCapacity: 10000
   friction: 0.05
@@ -53,7 +53,7 @@
     East: /Textures/_CE/Tiles/Dirt/double_edge_E.png
     North: /Textures/_CE/Tiles/Dirt/double_edge_N.png
     West: /Textures/_CE/Tiles/Dirt/double_edge_W.png
-  baseTurf: CEFloorBase
+  baseTurf: CEFloorStone
   #deconstructTools: [ CEDigging ]
   #itemDrop: CERandomDirtLootSpawner
   isSubfloor: true
@@ -183,7 +183,7 @@
     East: /Textures/_CE/Tiles/Sand/double_edge_E.png
     North: /Textures/_CE/Tiles/Sand/double_edge_N.png
     West: /Textures/_CE/Tiles/Sand/double_edge_W.png
-  baseTurf: CEFloorBase
+  baseTurf: CEFloorStone
   #deconstructTools: [ CEDigging ]
   #itemDrop: CEDirtEffect #TODO sand variant
   isSubfloor: true
